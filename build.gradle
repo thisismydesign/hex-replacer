@@ -12,6 +12,12 @@ repositories {
     }
 }
 
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 dependencies {
     compile group: 'thisismydesign', name: 'stringprocessor', version: '2.3'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
