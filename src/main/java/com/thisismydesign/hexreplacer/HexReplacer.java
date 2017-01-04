@@ -27,7 +27,7 @@ public class HexReplacer implements Replacer {
     @Override
     public String getReplacement(String string) {
         try {
-            return betweenPipes(toHex(string));
+            return betweenPipes(toHexFormat(toHex(string)));
         } catch (UnsupportedEncodingException e) {
             throw new IllegalStateException(e.getMessage());
         }
@@ -39,6 +39,10 @@ public class HexReplacer implements Replacer {
 
     private String toHex(String string) throws UnsupportedEncodingException {
         return Hex.encodeHexString(string.getBytes(encoding));
+    }
+
+    private String toHexFormat(String string) {
+        return string.toUpperCase().replaceAll("..", "$0 ").trim();
     }
 
     private String betweenPipes(String string) {
